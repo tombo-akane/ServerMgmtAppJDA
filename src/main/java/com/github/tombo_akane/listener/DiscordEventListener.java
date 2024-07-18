@@ -2,6 +2,7 @@ package com.github.tombo_akane.listener;
 
 import com.github.tombo_akane.ServerMgmtAppJDA;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
@@ -20,11 +21,19 @@ public class DiscordEventListener extends ListenerAdapter {
         registerCommands(bot.getShardManager());
     }
 
+    public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
+        if (event.getName().equals("hello")) {
+            event.reply("Hello " + event.getUser().getAsMention() + "! How are you?")
+                    .setEphemeral(false)
+                    .queue();
+        }
+    }
+
     private void registerCommands(ShardManager jda) {
         Guild g = jda.getGuildById("1163461717116858520");
         if (g != null) {
             CommandListUpdateAction commands = g.updateCommands();
-            commands.addCommands(Commands.slash("hello", "Have the bot say hello to you in an ephemeral message!")).queue();
+            commands.addCommands(Commands.slash("hello", "How are you?")).queue();
         }
     }
 }
