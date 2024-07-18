@@ -23,7 +23,7 @@ public class DiscordEventListener extends ListenerAdapter {
 
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
         if (event.getName().equals("hello")) {
-            event.reply("Hello " + event.getUser().getAsMention() + "! How are you?")
+            event.reply("Hello " + event.getUser().getAsMention() + " !\nWhat's up?")
                     .setEphemeral(false)
                     .queue();
         }
