@@ -1,5 +1,6 @@
 package com.github.tombo_akane;
 
+import com.github.tombo_akane.listener.DiscordEventListener;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
 
@@ -19,7 +20,8 @@ public class ServerMgmtAppJDA {
 
     private ShardManager buildShardManager(String token) throws LoginException {
         DefaultShardManagerBuilder builder =
-                DefaultShardManagerBuilder.createDefault(token);
+                DefaultShardManagerBuilder.createDefault(token)
+                        .addEventListeners(new DiscordEventListener(this));
 
         return builder.build();
     }
